@@ -1,13 +1,8 @@
 import got from "got";
+import { Sponsor } from "../types";
 
-interface Sponsor {
-  login: string;
-  name: string;
-  url: string;
-}
-
-export class GHSponsorsAPI {
-  constructor(private uname: string) {}
+class GHSponsorsAPI {
+  constructor(private login: string) {}
 
   private request = async (query: string) => {
     return await got.post("https://api.github.com/graphql", {
@@ -22,7 +17,7 @@ export class GHSponsorsAPI {
 
   public hasSponsorsListing = async (): Promise<Boolean> => {
     const res = await this.request(`query {
-      user(login: "${this.uname}") {
+      user(login: "${this.login}") {
         hasSponsorsListing
       }
     }`);
@@ -42,7 +37,7 @@ export class GHSponsorsAPI {
 
     while (hasNextPage) {
       const res = await this.request(`query {
-        user(login: "${this.uname}") {
+        user(login: "${this.login}") {
           ... on Sponsorable {
             sponsors(first: 100 ${after}) {
               pageInfo {
@@ -80,3 +75,5 @@ export class GHSponsorsAPI {
     return sponsors;
   };
 }
+
+export { Sponsor, GHSponsorsAPI };

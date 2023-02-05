@@ -1,5 +1,5 @@
 import got from "got";
-import { Sponsor } from "../types";
+import { User } from "../types";
 
 class GHSponsorsAPI {
   constructor(private login: string) {}
@@ -29,8 +29,8 @@ class GHSponsorsAPI {
     }
   };
 
-  public getCurrentSponsors = async (): Promise<Sponsor[]> => {
-    const sponsors: Sponsor[] = [];
+  public getCurrentSponsors = async (): Promise<User[]> => {
+    const sponsors: User[] = [];
 
     let after = "";
     let hasNextPage = true;
@@ -47,12 +47,10 @@ class GHSponsorsAPI {
               nodes {
                 ... on User {
                   login
-                  name
                   url
                 }
                 ... on Organization {
                   login
-                  name
                   url
                 }
               }
@@ -68,7 +66,7 @@ class GHSponsorsAPI {
         hasNextPage = data.pageInfo.hasNextPage;
         after = `, after:"${data.pageInfo.endCursor}"`;
 
-        sponsors.push(...(data.nodes as Sponsor[]));
+        sponsors.push(...(data.nodes as User[]));
       }
     }
 
@@ -76,4 +74,4 @@ class GHSponsorsAPI {
   };
 }
 
-export { Sponsor, GHSponsorsAPI };
+export { GHSponsorsAPI };

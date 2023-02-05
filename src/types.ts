@@ -1,7 +1,6 @@
-interface Sponsor {
+interface User {
   login: string;
-  name?: string;
   url: string;
 }
 
-export { Sponsor };
+export { User };

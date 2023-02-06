@@ -7,8 +7,6 @@
   "author": "AbdulKaiz Khatri",
   "license": "MIT",
   "private": true,
-  "scripts": {
-  },
   "dependencies": {
     "got": "^11.8.3",
     "node-cron": "^3.0.2",

@@ -39,19 +39,13 @@ const Canvas: React.FC<Props> = ({
           {`
              @keyframes float {
                0% {
-                 transform: translateY(0) translateX(0);
-               }
-               25% {
-                 transform: translateY(-2.5px) translateX(2.5px);
+                 transform: translateY(-4px);
                }
                50% {
-                 transform: translateY(2.5px) translateX(0px);
-               }
-               75% {
-                 transform: translateY(-2.5px) translateX(-2.5.px);
+                 transform: translateY(4px);
                }
                100% {
-                 transform: translateY(0) translateX(0);
+                 transform: translateY(-4px);
                }
              }
           `}
@@ -61,7 +55,7 @@ const Canvas: React.FC<Props> = ({
             maxWidth: "100px",
             margin: "0px 5px",
             paddingRight: "10px",
-            animation: "float 10s ease-in-out infinite",
+            animation: "float 5s ease-in-out infinite",
           }}
         >
           <div id="cover">

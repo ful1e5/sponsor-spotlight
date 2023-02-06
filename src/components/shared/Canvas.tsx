@@ -35,14 +35,38 @@ const Canvas: React.FC<Props> = ({
           fontWeight: 400,
         }}
       >
+        <style>
+          {`
+             @keyframes float {
+               0% {
+                 transform: translateY(0) translateX(0);
+               }
+               25% {
+                 transform: translateY(-2.5px) translateX(2.5px);
+               }
+               50% {
+                 transform: translateY(2.5px) translateX(0px);
+               }
+               75% {
+                 transform: translateY(-2.5px) translateX(-2.5.px);
+               }
+               100% {
+                 transform: translateY(0) translateX(0);
+               }
+             }
+          `}
+        </style>
         <div
           style={{
             maxWidth: "100px",
             margin: "0px 5px",
             paddingRight: "10px",
+            animation: "float 10s ease-in-out infinite",
           }}
         >
-          <Octocat />
+          <div id="cover">
+            <Octocat />
+          </div>
         </div>
 
         {children}

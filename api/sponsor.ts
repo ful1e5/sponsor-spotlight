@@ -5,11 +5,13 @@ import { VercelRequest, VercelResponse } from "@vercel/node";
 import { GHSponsorsAPI } from "../utils/ghSponsorsAPI";
 import { ShoutOut, Request } from "../components";
 import { User } from "../types";
+import { HTTPError } from "got/dist/source";
 
 const getluckySponsor = async (
   login: string
 ): Promise<User | undefined | null> => {
   const api = new GHSponsorsAPI(login);
+
   const hasSponsorsListing = await api.hasSponsorsListing();
 
   if (hasSponsorsListing) {
@@ -36,8 +38,16 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (!req.query.login) {
     return res.status(404).json({ error: `"login" query not found` });
   }
+
   const login = `${req.query.login}`;
-  const sponsor = await getluckySponsor(login);
+  let sponsor: User | null | undefined;
+
+  try {
+    sponsor = await getluckySponsor(login);
+  } catch (e) {
+    const error = (e as HTTPError).response;
+    return res.status(error.statusCode).json(error.body);
+  }
 
   if (sponsor === undefined) {
     return res.status(404).json({ error: "Github Sponsor Listing Not Found" });

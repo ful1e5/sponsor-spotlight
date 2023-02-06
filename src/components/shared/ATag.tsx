@@ -7,7 +7,7 @@ interface Props {
 
 const ATag: React.FC<Props> = ({ text, url }) => {
   return (
-    <a href={url} target="_blank" style={{ color: "#020202" }}>
+    <a href={url} target="_blank" style={{ color: "inherit" }}>
       {text}
     </a>
   );

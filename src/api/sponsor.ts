@@ -3,11 +3,7 @@ import { renderToString } from "react-dom/server";
 import { VercelRequest, VercelResponse } from "@vercel/node";
 
 import { GHSponsorsAPI } from "../utils/ghSponsorsAPI";
-import { randomThanksText, randomBecameSponsorText } from "../utils/texts";
-
-import { ThankYou } from "../components/ThankYou";
-import { BecameSponsor } from "../components/BecameSponsor";
-
+import { ShoutOut, Request } from "../components";
 import { User } from "../types";
 
 const getluckySponsor = async (
@@ -32,7 +28,7 @@ const getluckySponsor = async (
   }
 };
 
-function haveShoutOutMood(probability: number = 0.4): boolean {
+function haveShoutOutMood(probability: number = 0.7): boolean {
   return Math.random() < probability;
 }
 
@@ -53,17 +49,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     url: `https://github.com/sponsors/${login}`,
   };
 
-  component = BecameSponsor({
-    text: randomBecameSponsorText(),
-    user,
-  });
+  component = Request({ user });
 
   if (sponsor && haveShoutOutMood()) {
-    component = ThankYou({
-      text: randomThanksText(),
-      user,
-      sponsor,
-    });
+    component = ShoutOut({ user, sponsor });
   }
 
   if (component) {

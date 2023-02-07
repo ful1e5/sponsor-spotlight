@@ -1,2 +1,3 @@
 # sponsor-spotlight
-"Sponsor Spotlight" features my Github monthly sponsors through random shoutout images displayed for a full day.
+
+This project would like to extend a warm shout-out to our fantastic Github monthly sponsors. Approximately 70% of requests will feature a randomly selected sponsor, with the remaining being utilized for onboarding new sponsors.

@@ -1,4 +1,5 @@
-import { ShoutOut } from "./ShoutOut";
+import { NotFound } from "./NotFound";
 import { Request } from "./Request";
+import { ShoutOut } from "./ShoutOut";
 
-export { ShoutOut, Request };
+export { NotFound, Request, ShoutOut };

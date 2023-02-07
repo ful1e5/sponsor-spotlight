@@ -2,9 +2,8 @@ import React from "react";
 
 import { getRandomElement } from "../utils/getRandomElement";
 
-import { Canvas } from "./shared/Canvas";
-import { ATag } from "./shared/ATag";
-import { Octocat } from "./svgs/Octocat";
+import { ATag,Canvas } from "./shared";
+import { Octocat } from "./svgs";
 import { User } from "../types";
 
 const texts: string[] = [

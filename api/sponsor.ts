@@ -1,11 +1,12 @@
+import { HTTPError } from "got/dist/source";
+import { VercelRequest, VercelResponse } from "@vercel/node";
 import { randomInt } from "crypto";
 import { renderToString } from "react-dom/server";
-import { VercelRequest, VercelResponse } from "@vercel/node";
 
 import { GHSponsorsAPI } from "../utils/ghSponsorsAPI";
-import { ShoutOut, Request } from "../components";
+import { NotFound, Request, ShoutOut } from "../components";
+
 import { User } from "../types";
-import { HTTPError } from "got/dist/source";
 
 const getluckySponsor = async (
   login: string
@@ -49,19 +50,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(error.statusCode).json(error.body);
   }
 
-  if (sponsor === undefined) {
-    return res.status(404).json({ error: "Github Sponsor Listing Not Found" });
-  }
-
   let component: React.ReactElement<any, any> | null;
-  const user = {
-    login,
-    url: `https://github.com/sponsors/${login}`,
-  };
-
+  const user = { login, url: `https://github.com/sponsors/${login}` };
   component = Request({ user });
 
-  if (sponsor && haveShoutOutMood()) {
+  if (sponsor === undefined) {
+    component = NotFound({ user });
+  } else if (sponsor && haveShoutOutMood()) {
     component = ShoutOut({ user, sponsor });
   }
 
@@ -71,5 +66,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     const text = renderToString(component);
     return res.status(200).send(text);
+  } else {
+    return res.status(500).json({
+      error: "An error occurred while generating the React component.",
+      action: "Please create an issue",
+      visit: "https://github.com/ful1e5/sponsor-spotlight/issues",
+    });
   }
 }

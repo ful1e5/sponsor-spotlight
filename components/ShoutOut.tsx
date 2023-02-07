@@ -4,6 +4,7 @@ import { getRandomElement } from "../utils/getRandomElement";
 
 import { Canvas } from "./shared/Canvas";
 import { ATag } from "./shared/ATag";
+import { Octocat } from "./svgs/Octocat";
 import { User } from "../types";
 
 const texts: string[] = [
@@ -34,6 +35,7 @@ const ShoutOut: React.FC<Props> = ({ sponsor, user }) => {
       borderColor="#B252FF"
       foregroundColor="#FFFFFF"
     >
+      <Octocat />
       <div style={{ display: "flex" }}>
         <p>
           {info[0]}

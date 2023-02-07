@@ -35,33 +35,6 @@ const Canvas: React.FC<Props> = ({
           fontWeight: 400,
         }}
       >
-        <style>
-          {`
-             @keyframes float {
-               0% {
-                 transform: translateY(-2px);
-               }
-               50% {
-                 transform: translateY(5px);
-               }
-               100% {
-                 transform: translateY(-2px);
-               }
-             }
-          `}
-        </style>
-        <div
-          id="cover"
-          style={{
-            maxWidth: "100px",
-            margin: "0px 5px",
-            paddingRight: "10px",
-            animation: "float 5s ease-in-out infinite",
-          }}
-        >
-          <Octocat />
-        </div>
-
         {children}
       </div>
     </SvgImg>

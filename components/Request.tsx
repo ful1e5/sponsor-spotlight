@@ -4,6 +4,7 @@ import { getRandomElement } from "../utils/getRandomElement";
 
 import { Canvas } from "./shared/Canvas";
 import { ATag } from "./shared/ATag";
+import { Octocat } from "./svgs/Octocat";
 import { User } from "../types";
 
 const texts: string[] = [
@@ -32,6 +33,7 @@ const Request: React.FC<Props> = ({ user }) => {
       borderColor="#FF6767"
       foregroundColor="#FFFFFF"
     >
+      <Octocat />
       <p style={{ marginTop: "-5px" }}>
         {info[0]}
         <b>

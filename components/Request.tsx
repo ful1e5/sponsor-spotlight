@@ -32,7 +32,7 @@ const Request: React.FC<Props> = ({ user }) => {
       borderColor="#FF6767"
       foregroundColor="#FFFFFF"
     >
-      <p style={{ marginTop: "-10px" }}>
+      <p style={{ marginTop: "-5px" }}>
         {info[0]}
         <b>
           <ATag text={`@${user.login}`} url={user.url} />

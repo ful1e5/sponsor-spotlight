@@ -34,20 +34,23 @@ const ShoutOut: React.FC<Props> = ({ sponsor, user }) => {
       borderColor="#B252FF"
       foregroundColor="#FFFFFF"
     >
-      <p>
-        {info[0]}
-        <b>
-          <ATag text={`@${sponsor.login}`} url={sponsor.url} />
-        </b>
-        {info[1]}
-
-        <p dir="rtl" style={{ paddingRight: "40px", fontSize: "15px" }}>
+      <div style={{ display: "flex" }}>
+        <p>
+          {info[0]}
           <b>
-            <ATag text={`${user.login}@`} url={user.url} />
+            <ATag text={`@${sponsor.login}`} url={sponsor.url} />
           </b>
-          &mdash;
+          {info[1]}
+          <div style={{ alignSelf: "flex-end", padding: "2px 10px 0px 0px" }}>
+            <p dir="rtl">
+              <b>
+                <ATag text={`${user.login}@`} url={user.url} />
+              </b>
+              &mdash;
+            </p>
+          </div>
         </p>
-      </p>
+      </div>
     </Canvas>
   );
 };

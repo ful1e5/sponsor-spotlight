@@ -5,9 +5,9 @@ import SvgImg from "./SvgImg";
 
 interface Props {
   children?: React.ReactNode;
-  backgroundColor?: string;
-  foregroundColor?: string;
-  borderColor?: string;
+  backgroundColor: string;
+  foregroundColor: string;
+  borderColor: string;
 }
 
 const Canvas: React.FC<Props> = ({
@@ -17,16 +17,16 @@ const Canvas: React.FC<Props> = ({
   children,
 }) => {
   return (
-    <SvgImg width="750px" height="135px">
+    <SvgImg width="850px" height="125px">
       <div
         style={{
           display: "flex",
           alignItems: "center",
-          background: backgroundColor || "#d3d3d3",
-          border: `2px solid ${borderColor || "#808080"}`,
-          color: foregroundColor || "#020202",
-          borderRadius: "15px",
-          padding: "6px 10px",
+          background: backgroundColor,
+          border: `2px solid ${borderColor}`,
+          color: foregroundColor,
+          borderRadius: "8px",
+          padding: "2px 20px 2px 10px",
           fontFamily:
             "-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans',Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji'",
           fontSize: "14px",
@@ -39,18 +39,19 @@ const Canvas: React.FC<Props> = ({
           {`
              @keyframes float {
                0% {
-                 transform: translateY(-4px);
+                 transform: translateY(-2px);
                }
                50% {
-                 transform: translateY(4px);
+                 transform: translateY(5px);
                }
                100% {
-                 transform: translateY(-4px);
+                 transform: translateY(-2px);
                }
              }
           `}
         </style>
         <div
+          id="cover"
           style={{
             maxWidth: "100px",
             margin: "0px 5px",
@@ -58,9 +59,7 @@ const Canvas: React.FC<Props> = ({
             animation: "float 5s ease-in-out infinite",
           }}
         >
-          <div id="cover">
-            <Octocat />
-          </div>
+          <Octocat />
         </div>
 
         {children}

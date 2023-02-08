@@ -41,6 +41,8 @@ GH_AUTH_TOKEN=<token>
 
 - [x] Share with the internet.
 - [ ] Onboard 20 standard-tier sponsors.
+- [ ] Use [styled-components](https://github.com/styled-components/styled-components)
+- [ ] Write better messages
 - [ ] Write tests.
 - [ ] Purchase a domain.
 - [ ] Transform this into a website with added customization.

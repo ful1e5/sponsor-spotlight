@@ -13,4 +13,4 @@ const ATag: React.FC<Props> = ({ text, url }) => {
   );
 };
 
-export { Props, ATag };
+export { ATag };

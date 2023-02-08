@@ -1,7 +1,6 @@
 import React from "react";
-import { Octocat } from "../svgs/Octocat";
 
-import SvgImg from "./SvgImg";
+import { SvgImg } from "./SvgImg";
 
 interface Props {
   children?: React.ReactNode;
@@ -41,4 +40,4 @@ const Canvas: React.FC<Props> = ({
   );
 };
 
-export { Props, Canvas };
+export { Canvas };

@@ -7,18 +7,18 @@ const Octocat: React.FC<Props> = ({}) => {
     <>
       <style>
         {`
-             @keyframes float {
-               0% {
-                 transform: translateY(-2px);
-               }
-               50% {
-                 transform: translateY(5px);
-               }
-               100% {
-                 transform: translateY(-2px);
-               }
-             }
-          `}
+            @keyframes float {
+              0% {
+                transform: translateY(5px);
+              }
+              50% {
+                transform: translateY(-1px);
+              }
+              100% {
+                transform: translateY(5px);
+              }
+            }
+         `}
       </style>
       <div
         id="cover"

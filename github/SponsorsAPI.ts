@@ -1,7 +1,7 @@
 import got from "got";
 import { User } from "../types";
 
-class GHSponsorsAPI {
+class SponsorsAPI {
   constructor(private login: string) {}
 
   private request = async (query: string) => {
@@ -74,4 +74,4 @@ class GHSponsorsAPI {
   };
 }
 
-export { GHSponsorsAPI };
+export { SponsorsAPI };

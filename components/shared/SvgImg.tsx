@@ -6,7 +6,7 @@ interface Props {
   children: React.ReactNode;
 }
 
-const SvgImage: React.FC<Props> = ({ width, height, children }) => {
+const SvgImg: React.FC<Props> = ({ width, height, children }) => {
   return (
     <svg
       fill="none"
@@ -30,4 +30,4 @@ const SvgImage: React.FC<Props> = ({ width, height, children }) => {
   );
 };
 
-export default SvgImage;
+export { SvgImg };

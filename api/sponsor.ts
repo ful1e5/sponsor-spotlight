@@ -3,7 +3,7 @@ import { VercelRequest, VercelResponse } from "@vercel/node";
 import { randomInt } from "crypto";
 import { renderToString } from "react-dom/server";
 
-import { GHSponsorsAPI } from "../utils/ghSponsorsAPI";
+import { SponsorsAPI } from "../github/SponsorsAPI";
 import { NotFound, Request, ShoutOut } from "../components";
 
 import { User } from "../types";
@@ -11,7 +11,7 @@ import { User } from "../types";
 const getluckySponsor = async (
   login: string
 ): Promise<User | undefined | null> => {
-  const api = new GHSponsorsAPI(login);
+  const api = new SponsorsAPI(login);
 
   const hasSponsorsListing = await api.hasSponsorsListing();
 

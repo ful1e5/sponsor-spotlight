@@ -1,8 +1,7 @@
 import React from "react";
+import { randomInt } from "crypto";
 
-import { getRandomElement } from "../utils/getRandomElement";
-
-import { ATag,Canvas } from "./shared";
+import { ATag, Canvas } from "./shared";
 import { Octocat } from "./svgs";
 import { User } from "../types";
 
@@ -26,7 +25,7 @@ interface Props {
 }
 
 const ShoutOut: React.FC<Props> = ({ sponsor, user }) => {
-  const info = getRandomElement(texts).split("$1");
+  const info = texts[randomInt(texts.length)].split("$1");
 
   return (
     <Canvas

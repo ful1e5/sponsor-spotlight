@@ -41,6 +41,7 @@ GH_AUTH_TOKEN=<token>
 
 - [x] Share with the internet.
 - [ ] Onboard 20 standard-tier sponsors.
+- [ ] Design a Shout Out Octocat Icon.
 - [ ] Use [styled-components](https://github.com/styled-components/styled-components)
 - [ ] Write better messages
 - [ ] Write tests.
@@ -50,3 +51,7 @@ GH_AUTH_TOKEN=<token>
 ##### Assets
 
 All of the hand-designed assets are available on [Figma](https://www.figma.com/file/W4aZx0nXlbgShqEjjOYOYy/sponsor-spotlight?node-id=0%3A1&t=jLk63fHreyCpyX89-1), including Octocat icons in a convenient resolution with SVG format.
+
+###### Blog posts
+
+- About Sponsor Spotlight on [dev.to](https://dev.to/ful1e5/lets-give-recognition-to-those-supporting-our-work-on-github-sponsors-b00)

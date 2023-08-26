@@ -31,11 +31,7 @@ const getluckySponsor = async (
   }
 };
 
-function haveShoutOutMood(probability: number = 0.7): boolean {
-  return Math.random() < probability;
-}
-
-export default async function handler(req: VercelRequest, res: VercelResponse) {
+export default async function (req: VercelRequest, res: VercelResponse) {
   if (!req.query.login) {
     return res.status(404).json({ error: `"login" query not found` });
   }
@@ -56,7 +52,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   if (sponsor === undefined) {
     component = NotFound({ user });
-  } else if (sponsor && haveShoutOutMood()) {
+  } else if (sponsor && Math.random() < 0.9) {
     component = ShoutOut({ user, sponsor });
   }
 

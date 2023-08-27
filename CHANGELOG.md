@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [unreleased]
 
+## [v1.0.1] - 27 August 2023
+
 ### Changes
 
 - 90% chances of shoutout.
@@ -18,5 +20,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial release 🎊
 
-[unreleased]: https://github.com/projekt0n/caret.nvim/compare/v1.0.0...main
+[unreleased]: https://github.com/projekt0n/caret.nvim/compare/v1.0.1...main
+[v1.0.1]: https://github.com/projekt0n/caret.nvim/compare/v1.0.0...v1.0.1
 [v1.0.0]: https://github.com/projekt0n/caret.nvim/tree/v1.0.0

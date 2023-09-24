@@ -1,4 +1,4 @@
-import { ATag } from "./ATag";
+import { Link } from "./Link";
 import { Canvas } from "./Canvas";
 
-export { ATag, Canvas };
+export { Link, Canvas };

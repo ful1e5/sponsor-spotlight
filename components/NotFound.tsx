@@ -1,6 +1,6 @@
 import React from "react";
 
-import { ATag, Canvas } from "./shared";
+import { Link, Canvas } from "./shared";
 import { Error } from "./svgs";
 import { User } from "../types";
 
@@ -20,7 +20,7 @@ const NotFound: React.FC<Props> = ({ user }) => {
         Unable to locate a listing for Github Sponsors associated with the
         Github account{" "}
         <b>
-          <ATag text={`@${user.login}`} url={user.url} />
+          <Link text={`@${user.login}`} url={user.url} />
         </b>
         . It is possible that the account you are seeking may not be active or
         may not have enrolled in the Github Sponsors program.

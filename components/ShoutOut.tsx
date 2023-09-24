@@ -1,7 +1,7 @@
 import React from "react";
 import { randomInt } from "crypto";
 
-import { ATag, Canvas } from "./shared";
+import { Link, Canvas } from "./shared";
 import { Octocat } from "./svgs";
 import { User } from "../types";
 
@@ -55,21 +55,19 @@ const ShoutOut: React.FC<Props> = ({ sponsor, user }) => {
       foregroundColor="#FFFFFF"
     >
       <Octocat />
-      <div style={{ display: "flex" }}>
-        <p>
+      <div style={{ display: "flex", width: "100%" }}>
+        <p style={{ flex: 1, textAlign: "left" }}>
           {info[0]}
           <b>
-            <ATag text={`@${sponsor.login}`} url={sponsor.url} />
+            <Link text={`@${sponsor.login}`} url={sponsor.url} />
           </b>
           {info[1]}
-          <div style={{ alignSelf: "flex-end", padding: "2px 10px 0px 0px" }}>
-            <p dir="rtl">
-              <b>
-                <ATag text={`${user.login}@`} url={user.url} />
-              </b>
-              &mdash;
-            </p>
-          </div>
+          <p style={{ textAlign: "right", padding: "5px 20px 0px 0px" }}>
+            &mdash;
+            <b>
+              <Link text={`@${user.login}`} url={user.url} />
+            </b>
+          </p>
         </p>
       </div>
     </Canvas>

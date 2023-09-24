@@ -1,7 +1,7 @@
 import React from "react";
 import { randomInt } from "crypto";
 
-import { ATag, Canvas } from "./shared";
+import { Link, Canvas } from "./shared";
 import { Octocat } from "./svgs";
 import { User } from "../types";
 
@@ -35,7 +35,7 @@ const Request: React.FC<Props> = ({ user }) => {
       <p style={{ marginTop: "-5px" }}>
         {info[0]}
         <b>
-          <ATag text={`@${user.login}`} url={user.url} />
+          <Link text={`@${user.login}`} url={user.url} />
         </b>
         {info[1]}
       </p>

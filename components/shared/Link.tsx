@@ -5,7 +5,7 @@ interface Props {
   url: string;
 }
 
-const ATag: React.FC<Props> = ({ text, url }) => {
+const Link: React.FC<Props> = ({ text, url }) => {
   return (
     <a href={url} target="_blank" style={{ color: "inherit" }}>
       {text}
@@ -13,4 +13,5 @@ const ATag: React.FC<Props> = ({ text, url }) => {
   );
 };
 
-export { ATag };
+export { Link };
+

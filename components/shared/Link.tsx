@@ -14,4 +14,3 @@ const Link: React.FC<Props> = ({ text, url }) => {
 };
 
 export { Link };
-

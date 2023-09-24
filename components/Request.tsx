@@ -2,7 +2,7 @@ import React from "react";
 import { randomInt } from "crypto";
 
 import { Link, Canvas } from "./shared";
-import { Octocat } from "./svgs";
+import { Octocat as OctocatSVG } from "./svgs";
 import { User } from "../types";
 
 const texts: string[] = [
@@ -31,7 +31,7 @@ const Request: React.FC<Props> = ({ user }) => {
       borderColor="#FF6767"
       foregroundColor="#FFFFFF"
     >
-      <Octocat />
+      <OctocatSVG />
       <p style={{ marginTop: "-5px" }}>
         {info[0]}
         <b>

@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Link, Canvas } from "./shared";
-import { Error } from "./svgs";
+import { Error as ErrorSVG } from "./svgs";
 import { User } from "../types";
 
 interface Props {
@@ -15,7 +15,7 @@ const NotFound: React.FC<Props> = ({ user }) => {
       borderColor="#E39E4D"
       foregroundColor="#FFFFFF"
     >
-      <Error />
+      <ErrorSVG />
       <p>
         Unable to locate a listing for Github Sponsors associated with the
         Github account{" "}

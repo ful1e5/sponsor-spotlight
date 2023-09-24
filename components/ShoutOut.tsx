@@ -2,8 +2,9 @@ import React from "react";
 import { randomInt } from "crypto";
 
 import { Link, Canvas } from "./shared";
-import { Octocat } from "./svgs";
-import { User } from "../types";
+import { Octocat as OctocatSVG } from "./svgs";
+import { User, Goal } from "../types";
+import { SponsorshipBar } from "./SponsorshipBar";
 
 const texts = [
   "$1's invaluable support is deeply appreciated. Your sponsorship propels my open-source journey and makes a significant impact.",
@@ -43,9 +44,10 @@ const texts = [
 interface Props {
   user: User;
   sponsor: User;
+  goal: Goal | null;
 }
 
-const ShoutOut: React.FC<Props> = ({ sponsor, user }) => {
+const ShoutOut: React.FC<Props> = ({ sponsor, user, goal }) => {
   const info = texts[randomInt(texts.length)].split("$1");
 
   return (
@@ -54,21 +56,39 @@ const ShoutOut: React.FC<Props> = ({ sponsor, user }) => {
       borderColor="#B252FF"
       foregroundColor="#FFFFFF"
     >
-      <Octocat />
-      <div style={{ display: "flex", width: "100%" }}>
-        <p style={{ flex: 1, textAlign: "left" }}>
-          {info[0]}
-          <b>
-            <Link text={`@${sponsor.login}`} url={sponsor.url} />
-          </b>
-          {info[1]}
-          <p style={{ textAlign: "right", padding: "5px 20px 0px 0px" }}>
+      <OctocatSVG />
+
+      <div
+        style={{
+          display: "flex",
+          textAlign: "left",
+          flexDirection: "column",
+          flexWrap: "wrap",
+          width: "100%",
+        }}
+      >
+        <div style={{ paddingTop: 10 }}>
+          <p>
+            {info[0]}
+            <b>
+              <Link text={`@${sponsor.login}`} url={sponsor.url} />
+            </b>
+            {info[1]}
+          </p>
+        </div>
+
+        <div style={{ paddingTop: 10 }}>
+          <SponsorshipBar goal={goal} />
+        </div>
+
+        <div style={{ textAlign: "right" }}>
+          <p style={{ padding: "0px 20px 0px 0px" }}>
             &mdash;
             <b>
               <Link text={`@${user.login}`} url={user.url} />
             </b>
           </p>
-        </p>
+        </div>
       </div>
     </Canvas>
   );

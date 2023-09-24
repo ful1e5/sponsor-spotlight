@@ -1,5 +1,5 @@
 import got from "got";
-import { User } from "../types";
+import { User, Goal } from "../types";
 
 class SponsorsAPI {
   constructor(private login: string) {}
@@ -29,7 +29,7 @@ class SponsorsAPI {
     }
   };
 
-  public getCurrentSponsors = async (): Promise<User[]> => {
+  public getActiveSponsors = async (): Promise<User[]> => {
     const sponsors: User[] = [];
 
     let after = "";
@@ -71,6 +71,33 @@ class SponsorsAPI {
     }
 
     return sponsors;
+  };
+
+  public getSponsorshipGoal = async () => {
+    let goal: Goal | null = null;
+    const res = await this.request(`query {
+        user(login: "${this.login}") {
+          sponsorsListing {
+            activeGoal {
+              percentComplete
+              title
+            }
+          }
+        }
+      }`);
+
+    const body = JSON.parse(res.body);
+    if (body.data.user.sponsorsListing) {
+      const data = body.data.user.sponsorsListing.activeGoal;
+      if (data) {
+        goal = {
+          percentComplete: data.percentComplete,
+          title: data.title,
+        };
+      }
+    }
+
+    return goal;
   };
 }
 

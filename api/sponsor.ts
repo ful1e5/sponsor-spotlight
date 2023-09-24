@@ -6,17 +6,15 @@ import { renderToString } from "react-dom/server";
 import { SponsorsAPI } from "../github/SponsorsAPI";
 import { NotFound, Request, ShoutOut } from "../components";
 
-import { User } from "../types";
+import { User, Goal } from "../types";
 
 const getluckySponsor = async (
-  login: string
+  api: SponsorsAPI,
 ): Promise<User | undefined | null> => {
-  const api = new SponsorsAPI(login);
-
   const hasSponsorsListing = await api.hasSponsorsListing();
 
   if (hasSponsorsListing) {
-    const sponsors = await api.getCurrentSponsors();
+    const sponsors = await api.getActiveSponsors();
 
     if (sponsors.length == 0) {
       return null;
@@ -37,23 +35,25 @@ export default async function (req: VercelRequest, res: VercelResponse) {
   }
 
   const login = `${req.query.login}`;
-  let sponsor: User | null | undefined;
+  const api = new SponsorsAPI(login);
 
+  let sponsor: User | undefined | null = null;
+  let goal: Goal | null = null;
   try {
-    sponsor = await getluckySponsor(login);
+    sponsor = await getluckySponsor(api);
+    goal = await api.getSponsorshipGoal();
   } catch (e) {
     const error = (e as HTTPError).response;
     return res.status(error.statusCode).json(error.body);
   }
 
-  let component: React.ReactElement<any, any> | null;
   const user = { login, url: `https://github.com/sponsors/${login}` };
-  component = Request({ user });
+  let component = Request({ user });
 
   if (sponsor === undefined) {
     component = NotFound({ user });
   } else if (sponsor && Math.random() < 0.9) {
-    component = ShoutOut({ user, sponsor });
+    component = ShoutOut({ user, sponsor, goal });
   }
 
   if (component) {

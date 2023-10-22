@@ -2,10 +2,9 @@ import React from "react";
 
 import { Link, Canvas } from "./shared";
 import { Error as ErrorSVG } from "./svgs";
-import { User } from "../types";
 
 interface Props {
-  user: User;
+  user: { login: string; url: string };
 }
 
 const NotFound: React.FC<Props> = ({ user }) => {

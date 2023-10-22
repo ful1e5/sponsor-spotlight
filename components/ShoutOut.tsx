@@ -42,7 +42,7 @@ const texts = [
 ];
 
 interface Props {
-  user: User;
+  user: { login: string; url: string };
   sponsor: User;
   goal: Goal | null;
 }

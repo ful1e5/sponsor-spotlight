@@ -3,7 +3,6 @@ import { randomInt } from "crypto";
 
 import { Link, Canvas } from "./shared";
 import { Octocat as OctocatSVG } from "./svgs";
-import { User } from "../types";
 
 const texts: string[] = [
   "Are you a supporter of open-source projects? Help me reach my goals by supporting my work at $1. Your contribution will not only be acknowledged in every project I undertake but will also keep my passion for open-source alive.",
@@ -19,7 +18,7 @@ const texts: string[] = [
 ];
 
 interface Props {
-  user: User;
+  user: { login: string; url: string };
 }
 
 const Request: React.FC<Props> = ({ user }) => {

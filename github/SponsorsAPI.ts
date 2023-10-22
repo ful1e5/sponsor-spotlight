@@ -48,10 +48,14 @@ class SponsorsAPI {
                 ... on User {
                   login
                   url
+                  name
+                  avatarUrl
                 }
                 ... on Organization {
                   login
                   url
+                  name
+                  avatarUrl
                 }
               }
             }
@@ -77,8 +81,12 @@ class SponsorsAPI {
     let goal: Goal | null = null;
     const res = await this.request(`query {
         user(login: "${this.login}") {
+          sponsorshipsAsMaintainer {
+            totalRecurringMonthlyPriceInCents
+          }
           sponsorsListing {
             activeGoal {
+              targetValue
               percentComplete
               title
             }
@@ -88,16 +96,34 @@ class SponsorsAPI {
 
     const body = JSON.parse(res.body);
     if (body.data.user.sponsorsListing) {
-      const data = body.data.user.sponsorsListing.activeGoal;
-      if (data) {
+      const activeGoal = body.data.user.sponsorsListing.activeGoal;
+      const sponsorshipsAsMaintainer = body.data.user.sponsorshipsAsMaintainer;
+      if (activeGoal) {
         goal = {
-          percentComplete: data.percentComplete,
-          title: data.title,
+          monthlySponsorshipInCents:
+            sponsorshipsAsMaintainer.totalRecurringMonthlyPriceInCents,
+          percentComplete: activeGoal.percentComplete,
+          title: activeGoal.title,
+          targetValueInDollar: activeGoal.targetValue,
         };
       }
     }
 
     return goal;
+  };
+
+  public getMe = async (): Promise<User> => {
+    const res = await this.request(`query {
+      user(login: "${this.login}") {
+        login
+        url
+        name
+        avatarUrl
+      }
+    }`);
+
+    const user = JSON.parse(res.body);
+    return user.data.user as User;
   };
 }
 

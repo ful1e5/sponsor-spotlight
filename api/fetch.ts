@@ -28,15 +28,18 @@ export default async function (req: VercelRequest, res: VercelResponse) {
   if (hasSponsorsListing) {
     const sponsors = await api.getActiveSponsors();
     const me = await api.getMe();
-    sponsors.push(me);
 
     const data: ResponseData = { sponsors };
 
     let IsSponsor = false;
     if (login) {
-      const unames = sponsors.map((s) => s.login);
-      IsSponsor = unames.includes(login);
-      data.is_sponsor = IsSponsor;
+      if (login === me.login) {
+        IsSponsor = true;
+      } else {
+        const unames = sponsors.map((s) => s.login);
+        IsSponsor = unames.includes(login);
+        data.is_sponsor = IsSponsor;
+      }
     }
 
     if (getGoals) {

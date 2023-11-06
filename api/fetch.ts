@@ -38,8 +38,8 @@ export default async function (req: VercelRequest, res: VercelResponse) {
       } else {
         const unames = sponsors.map((s) => s.login);
         IsSponsor = unames.includes(login);
-        data.is_sponsor = IsSponsor;
       }
+      data.is_sponsor = IsSponsor;
     }
 
     if (getGoals) {

@@ -10,6 +10,16 @@ interface User {
   url: string;
   name: string;
   avatarUrl: string;
+  dollar: number;
 }
 
-export { User, Goal };
+interface Me {
+  login: string;
+  url: string;
+  name: string;
+  avatarUrl: string;
+  total_dollar: number;
+}
+
+export { User, Me, Goal };
+

@@ -1,5 +1,5 @@
 import got from "got";
-import { User, Goal } from "../types";
+import { User, Goal, Me } from "../types";
 
 class SponsorsAPI {
   constructor(private login: string) {}
@@ -29,7 +29,9 @@ class SponsorsAPI {
     }
   };
 
-  public getActiveSponsors = async (): Promise<User[]> => {
+  public getActiveSponsors = async (opts: {
+    monthly?: boolean;
+  }): Promise<User[]> => {
     const sponsors: User[] = [];
 
     let after = "";
@@ -50,12 +52,18 @@ class SponsorsAPI {
                   url
                   name
                   avatarUrl
+                  sponsorshipsAsSponsor {
+                    totalRecurringMonthlyPriceInCents
+                  }
                 }
                 ... on Organization {
                   login
                   url
                   name
                   avatarUrl
+                  sponsorshipsAsSponsor {
+                    totalRecurringMonthlyPriceInCents
+                  }
                 }
               }
             }
@@ -70,7 +78,25 @@ class SponsorsAPI {
         hasNextPage = data.pageInfo.hasNextPage;
         after = `, after:"${data.pageInfo.endCursor}"`;
 
-        sponsors.push(...(data.nodes as User[]));
+        const nodes: any[] = data.nodes;
+        nodes.forEach((e) => {
+          const user: User = {
+            login: e.login,
+            url: e.url,
+            name: e.name,
+            avatarUrl: e.avatarUrl,
+            dollar:
+              e.sponsorshipsAsSponsor.totalRecurringMonthlyPriceInCents / 100,
+          };
+
+          if (opts.monthly) {
+            if (user.dollar > 0) {
+              sponsors.push(user);
+            }
+          } else {
+            sponsors.push(user);
+          }
+        });
       }
     }
 
@@ -94,10 +120,12 @@ class SponsorsAPI {
         }
       }`);
 
-    const body = JSON.parse(res.body);
-    if (body.data.user.sponsorsListing) {
-      const activeGoal = body.data.user.sponsorsListing.activeGoal;
-      const sponsorshipsAsMaintainer = body.data.user.sponsorshipsAsMaintainer;
+    const {
+      data: { user },
+    } = JSON.parse(res.body);
+    if (user.sponsorsListing) {
+      const activeGoal = user.sponsorsListing.activeGoal;
+      const sponsorshipsAsMaintainer = user.sponsorshipsAsMaintainer;
       if (activeGoal) {
         goal = {
           monthlySponsorshipInCents:
@@ -112,9 +140,12 @@ class SponsorsAPI {
     return goal;
   };
 
-  public getMe = async (): Promise<User> => {
+  public getMe = async () => {
     const res = await this.request(`query {
       user(login: "${this.login}") {
+        sponsorshipsAsMaintainer {
+          totalRecurringMonthlyPriceInCents
+        }
         login
         url
         name
@@ -122,8 +153,20 @@ class SponsorsAPI {
       }
     }`);
 
-    const user = JSON.parse(res.body);
-    return user.data.user as User;
+    const {
+      data: { user },
+    } = JSON.parse(res.body);
+
+    const me: Me = {
+      login: user.login,
+      url: user.login,
+      name: user.name,
+      avatarUrl: user.avatarUrl,
+      total_dollar:
+        user.sponsorshipsAsMaintainer.totalRecurringMonthlyPriceInCents / 100,
+    };
+
+    return me;
   };
 }
 

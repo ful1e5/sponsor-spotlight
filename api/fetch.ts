@@ -6,6 +6,7 @@ import { Goal, User } from "../types";
 type ResponseData = {
   sponsors: User[];
   others?: number;
+  total_dollar?: number;
   goals?: Goal | null;
   is_sponsor?: boolean;
 };
@@ -24,7 +25,7 @@ export default async function (req: VercelRequest, res: VercelResponse) {
   const hasSponsorsListing = await api.hasSponsorsListing();
 
   if (hasSponsorsListing) {
-    let sponsors = await api.getActiveSponsors();
+    let sponsors = await api.getActiveSponsors({ monthly: true });
     sponsors = sponsors.sort(() => Math.random() - 0.5);
     const me = await api.getMe();
 
@@ -34,6 +35,7 @@ export default async function (req: VercelRequest, res: VercelResponse) {
 
     if (getSingle) {
       data.others = sponsors.length - 1;
+      data.total_dollar = me.total_dollar;
     }
 
     let IsSponsor = false;

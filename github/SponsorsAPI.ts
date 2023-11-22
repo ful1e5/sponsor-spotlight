@@ -29,7 +29,7 @@ class SponsorsAPI {
     }
   };
 
-  public getActiveSponsors = async (opts: {
+  public getActiveSponsors = async (opts?: {
     monthly?: boolean;
   }): Promise<User[]> => {
     const sponsors: User[] = [];
@@ -89,7 +89,7 @@ class SponsorsAPI {
               e.sponsorshipsAsSponsor.totalRecurringMonthlyPriceInCents / 100,
           };
 
-          if (opts.monthly) {
+          if (opts?.monthly) {
             if (user.dollar > 0) {
               sponsors.push(user);
             }

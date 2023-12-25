@@ -107,7 +107,7 @@ class SponsorsAPI {
     let goal: Goal | null = null;
     const res = await this.request(`query {
         user(login: "${this.login}") {
-          sponsorshipsAsMaintainer {
+          sponsorshipsAsMaintainer(includePrivate: true) {
             totalRecurringMonthlyPriceInCents
           }
           sponsorsListing {

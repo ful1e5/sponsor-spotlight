@@ -11,13 +11,36 @@ type ResponseData = {
   is_sponsor?: boolean;
 };
 
+const tierList = [
+  "basic",
+  "standard",
+  "professional",
+  "premium",
+  "elite",
+  "diamond",
+];
+
 export default async function (req: VercelRequest, res: VercelResponse) {
   let login = "";
+  let tier = "";
   let getGoals = false;
+  let includeMaxTiers = false;
   let getSingle = false;
 
   if (req.query.login) login = `${req.query.login}`;
+
+  if (req.query.tier) {
+    tier = `${req.query.tier}`.toLowerCase() as User["tier"];
+    if (tier && !tierList.includes(tier)) {
+      return res.json({
+        error: `Inavalid value '${tier}' for query 'tier'`,
+        data: [],
+      });
+    }
+  }
+
   if (req.query.goals) getGoals = true;
+  if (req.query.inlcude_max_tiers) includeMaxTiers = true;
   if (req.query.single) getSingle = true;
 
   const api = new SponsorsAPI("ful1e5");
@@ -27,6 +50,15 @@ export default async function (req: VercelRequest, res: VercelResponse) {
   if (hasSponsorsListing) {
     let sponsors = await api.getActiveSponsors({ monthly: true });
     sponsors = sponsors.sort(() => Math.random() - 0.5);
+
+    if (tier && api.tiers[tier]) {
+      let list = [tier];
+      if (includeMaxTiers) {
+        list = tierList.slice(tierList.indexOf(tier)).filter(Boolean);
+      }
+      sponsors = sponsors.filter((sponsor) => list.includes(sponsor.tier));
+    }
+
     const me = await api.getMe();
 
     const data: ResponseData = {

@@ -5,12 +5,17 @@ interface Goal {
   monthlySponsorshipInCents: number;
 }
 
+type SponsorshipTiers = {
+  [key: string]: number;
+};
+
 interface User {
   login: string;
   url: string;
   name: string;
   avatarUrl: string;
   dollar: number;
+  tier: string;
 }
 
 interface Me {
@@ -21,5 +26,5 @@ interface Me {
   total_dollar: number;
 }
 
-export { User, Me, Goal };
+export { User, Me, Goal, SponsorshipTiers };
 

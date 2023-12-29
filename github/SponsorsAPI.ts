@@ -1,7 +1,16 @@
 import got from "got";
-import { User, Goal, Me } from "../types";
+import { User, Goal, Me, SponsorshipTiers } from "../types";
 
 class SponsorsAPI {
+  public tiers: SponsorshipTiers = {
+    basic: 100,
+    standard: 500,
+    professional: 10000,
+    premium: 25000,
+    elite: 50000,
+    diamond: 100000,
+  };
+
   constructor(private login: string) {}
 
   private request = async (query: string) => {
@@ -13,6 +22,13 @@ class SponsorsAPI {
         query: query,
       },
     });
+  };
+
+  private getTier = (value: number) => {
+    const tierKey = Object.keys(this.tiers).find(
+      (key) => this.tiers[key] === value,
+    );
+    return tierKey ? (tierKey as User["tier"]) : undefined;
   };
 
   public hasSponsorsListing = async (): Promise<Boolean> => {
@@ -80,13 +96,15 @@ class SponsorsAPI {
 
         const nodes: any[] = data.nodes;
         nodes.forEach((e) => {
+          const cents =
+            e.sponsorshipsAsSponsor.totalRecurringMonthlyPriceInCents;
           const user: User = {
             login: e.login,
             url: e.url,
             name: e.name,
             avatarUrl: e.avatarUrl,
-            dollar:
-              e.sponsorshipsAsSponsor.totalRecurringMonthlyPriceInCents / 100,
+            dollar: cents / 100,
+            tier: this.getTier(cents) || "Unknown",
           };
 
           if (opts?.monthly) {
